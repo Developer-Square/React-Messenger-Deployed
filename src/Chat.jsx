@@ -11,7 +11,7 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { Container, Row, Col, FormInput, Button } from "shards-react";
 
 const link = new WebSocketLink({
-  uri: `ws:https://react-messenger-backend-4.herokuapp.com/`,
+  uri: `ws://react-messenger-backend-4.herokuapp.com/`,
   options: {
     reconnect: true,
   },
