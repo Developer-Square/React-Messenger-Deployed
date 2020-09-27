@@ -1,9 +1,10 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const path = require("path");
 
 module.exports = {
   output: {
-    publicPath: "http://localhost:8080/",
+    path: path.resolve(__dirname, "./dist"),
   },
 
   resolve: {
@@ -11,9 +12,10 @@ module.exports = {
   },
 
   devServer: {
+    contentBase: path.resolve(__dirname, "./src"),
+    historyApiFallback: true,
     port: 8080,
   },
-
   module: {
     rules: [
       {
