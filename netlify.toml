@@ -1,3 +1,0 @@
-[[redirects]]
-
-/api/* http://localhost:8080/:splat 200!
