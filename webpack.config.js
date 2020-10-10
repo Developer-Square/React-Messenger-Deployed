@@ -4,7 +4,7 @@ const path = require("path");
 
 module.exports = {
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: "/",
   },
 
   resolve: {
