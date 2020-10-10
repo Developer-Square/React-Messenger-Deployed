@@ -4,7 +4,7 @@ const path = require("path");
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    publicPath: "http://localhost:8080/",
   },
 
   resolve: {
@@ -12,8 +12,6 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.resolve(__dirname, "./src"),
-    historyApiFallback: true,
     port: 8080,
   },
   module: {
@@ -45,8 +43,6 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      filename: "./index.html",
-      inject: true,
     }),
   ],
 };
