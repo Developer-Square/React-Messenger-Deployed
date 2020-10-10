@@ -12,6 +12,7 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 
 const link = new WebSocketLink({
   uri: `wss://react-messenger-backend-4.herokuapp.com/`,
+  // uri: `ws:localhost:4000/`,
   options: {
     reconnect: true,
   },
@@ -20,12 +21,19 @@ const link = new WebSocketLink({
 const client = new ApolloClient({
   link,
   uri: "https://react-messenger-backend-4.herokuapp.com/",
+  // uri: `http:localhost:4000/`,
   cache: new InMemoryCache(),
 });
 
 const POST_MESSAGES = gql`
   mutation($user: String!, $content: String!) {
     postMessage(user: $user, content: $content)
+  }
+`;
+
+const DELETE_MESSAGE = gql`
+  mutation($id: String!) {
+    deleteMessage(id: $id)
   }
 `;
 
@@ -40,16 +48,33 @@ const GET_MESSAGES = gql`
 `;
 
 const Messages = ({ user }) => {
-  const { data } = useSubscription(GET_MESSAGES);
+  const { data, loading, error } = useSubscription(GET_MESSAGES);
+  const [deleteMessage] = useMutation(DELETE_MESSAGE);
 
+  if (loading) return <p>Loading....</p>;
+  if (error) return <p>Error!</p>;
   if (!data) {
     return null;
   }
+
+  const showButton = (e) => {
+    let button = document.querySelectorAll(".delete");
+    button.forEach((btn) => {
+      btn.classList.toggle("show");
+    });
+  };
+
+  const handleDelete = (id) => {
+    deleteMessage({
+      variables: { id },
+    });
+  };
 
   return (
     <>
       {data.messages.map(({ id, user: messageUser, content }) => (
         <div
+          key={id}
           style={{
             display: "flex",
             justifyContent: user === messageUser ? "flex-end" : "flex-start",
@@ -74,6 +99,8 @@ const Messages = ({ user }) => {
             </div>
           )}
           <div
+            key={id}
+            onClick={user === messageUser ? (e) => showButton(e) : null}
             style={{
               background: user === messageUser ? "#58bf56" : "#e5e6ea",
               color: user === messageUser ? "white" : "black",
@@ -84,6 +111,13 @@ const Messages = ({ user }) => {
           >
             {content}
           </div>
+          {user === messageUser ? (
+            <div className="delete" onClick={() => handleDelete(id)}>
+              <div className="delete-btn">
+                <span className="x-button">x</span>
+              </div>
+            </div>
+          ) : null}
         </div>
       ))}
     </>
