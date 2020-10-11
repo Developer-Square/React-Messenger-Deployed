@@ -9,6 +9,7 @@ import {
 } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { Container, Row, Col, FormInput, Button } from "shards-react";
+import PageLoader from "./page-loader/PageLoader";
 
 const link = new WebSocketLink({
   uri: `wss://react-messenger-backend-4.herokuapp.com/`,
@@ -51,7 +52,7 @@ const Messages = ({ user }) => {
   const { data, loading, error } = useSubscription(GET_MESSAGES);
   const [deleteMessage] = useMutation(DELETE_MESSAGE);
 
-  if (loading) return <p>Loading....</p>;
+  if (loading) return <PageLoader />;
   if (error) return <p>Error!</p>;
   if (!data) {
     return null;
@@ -148,7 +149,7 @@ const Chat = () => {
   return (
     <Container style={{ marginBottom: "2em" }}>
       <Messages user={state.user} />
-      <Row className="mx-auto">
+      <Row className="mx-auto" style={{ marginTop: "1rem" }}>
         <Col xs={2} style={{ padding: 0 }}>
           <FormInput
             label="User"
