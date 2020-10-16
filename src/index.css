@@ -12,9 +12,33 @@ code {
     monospace;
 }
 
+.message-slicer {
+  height: 50px;
+  width: 50px;
+  margin-right: 0.5em;
+  border: 2px solid #f4bb00;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 18pt;
+  padding-top: 5px;
+}
+
 .delete {
   display: none;
   cursor: pointer;
+}
+
+.send-btn {
+  width: 100%;
+}
+
+.btn {
+  padding: 0.75rem 0.7rem !important;
+}
+
+.message-input {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
 }
 
 .show {
@@ -35,4 +59,15 @@ code {
 
 .x-button {
   margin-bottom: 4px;
+}
+
+@media all and (min-width: 768px) {
+  .message-input {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+  .btn {
+    padding: 0.75rem 1.25rem !important;
+  }
 }

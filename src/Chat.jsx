@@ -84,18 +84,7 @@ const Messages = ({ user }) => {
           }}
         >
           {user !== messageUser && (
-            <div
-              style={{
-                height: 50,
-                width: 50,
-                marginRight: "0.5em",
-                border: "2px solid #f4bb00",
-                borderRadius: 25,
-                textAlign: "center",
-                fontSize: "18pt",
-                paddingTop: 5,
-              }}
-            >
+            <div className="message-slicer">
               {messageUser.slice(0, 2).toUpperCase()}
             </div>
           )}
@@ -162,7 +151,7 @@ const Chat = () => {
             }
           />
         </Col>
-        <Col xs={8}>
+        <Col xs={8} className="message-input">
           <FormInput
             label="User"
             value={state.content}
@@ -180,7 +169,7 @@ const Chat = () => {
           />
         </Col>
         <Col xs={2} style={{ padding: 0 }}>
-          <Button onClick={() => onSend()} style={{ width: "100%" }}>
+          <Button onClick={() => onSend()} className="send-btn">
             Send
           </Button>
         </Col>
