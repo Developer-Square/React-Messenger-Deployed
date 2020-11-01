@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const AppManifestWebpackPlugin = require('app-manifest-webpack-plugin')
 const path = require("path");
 
 module.exports = {
@@ -46,7 +47,10 @@ module.exports = {
       shared: require("./package.json").dependencies,
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./src/index.html"
     }),
+    // new AppManifestWebpackPlugin({
+    //   logo: './src/images/Messenger_app_logo_200x200.png',
+    // }),
   ],
 };
