@@ -12,7 +12,7 @@
     "subscriptions-transport-ws": "^0.9.18"
   },
   "scripts": {
-    "build": "webpack --mode production && workbox generateSW && serve -s dist",
+    "build": "webpack --mode production && serve -s dist",
     "build:dev": "webpack --mode development",
     "start": "webpack-dev-server --open --mode development",
     "start:live": "webpack-dev-server --open --mode development --liveReload"
@@ -38,15 +38,19 @@
     "@babel/preset-react": "^7.10.4",
     "app-manifest-webpack-plugin": "^1.2.0",
     "babel-loader": "^8.1.0",
+    "bootstrap": "^4.6.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.2.1",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.3.0",
+    "react-bootstrap": "^1.5.0",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.3",
     "style-loader": "^1.2.1",
     "webpack": "^5.0.0-beta.28",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
+    "workbox-cli": "^5.1.4",
     "workbox-webpack-plugin": "^5.1.4"
   }
 }

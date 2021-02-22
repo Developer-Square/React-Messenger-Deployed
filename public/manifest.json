@@ -1,0 +1,41 @@
+{
+    "name": "Text Flow",
+    "short_name": "Text-Flow",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#FFE1C4",
+    "background_color": "#FFE9D2",
+    "icons": [
+      {
+        "src": "/images/rsz_1messenger_app_logo_36x36.png",
+        "type": "image/webp",
+        "sizes": "72x72"
+      },
+      {
+        "src": "/images/rsz_1messenger_app_logo_48x48.png",
+        "type": "image/webp",
+        "sizes": "96x96"
+      },
+      {
+        "src": "/images/rsz_1messenger_app_logo_72x72.png",
+        "type": "image/webp",
+        "sizes": "128x128"
+      },
+      {
+        "src": "/images/rsz_1messenger_app_logo_96x96.png",
+        "type": "image/webp",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/images/rsz_1messenger_app_logo_144x144.png",
+        "type": "image/webp",
+        "sizes": "152x152"
+      },
+      {
+        "src": "/images/rsz_1messenger_app_logo_192x192.png",
+        "type": "image/webp",
+        "sizes": "192x192"
+      }
+    ]
+  }

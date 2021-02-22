@@ -5,6 +5,4 @@ module.exports = {
   ],
   "swSrc": "src/sw.js",
   "swDest": "dist/sw.js",
-  clientsClaim: true,
-  skipWaiting: true
 };
