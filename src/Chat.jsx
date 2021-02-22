@@ -150,6 +150,7 @@ const Chat = () => {
     content: "",
   });
   const [show, setShow] = useState(false)
+  const [messageFieldPopover, setMessageFieldPopover] = useState(false)
   const [messagePopover, setMessagePopover] = useState(false)
 
   useEffect(() => {
@@ -173,7 +174,13 @@ const Chat = () => {
 
   const onHide = () => {
     setShow(false)
+    setMessageFieldPopover(false)
     setMessagePopover(!messagePopover)
+  }
+
+  const changeMessage = () => {
+    setShow(false)
+    setMessageFieldPopover(true)
   }
 
   return (
@@ -188,6 +195,7 @@ const Chat = () => {
                 <FormInput
                   label="User"
                   value={state.user}
+                  onClick={changeMessage}
                   onChange={(evt) =>
                     setState({
                       ...state,
@@ -199,7 +207,7 @@ const Chat = () => {
             </Col>
           <Col xs={8} className="message-input">
             <div className="message-field">
-              <MessagePopover title='Message' content='Add your message in this field and then click send.' show={show} target='message-field' onHide={onHide}/>
+              <MessagePopover title='Message' content='Add your message in this field and then click send.' show={messageFieldPopover} target='message-field' onHide={onHide}/>
               <FormInput
                 label="User"
                 value={state.content}
