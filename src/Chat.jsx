@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -9,6 +9,8 @@ import {
 } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { Container, Row, Col, FormInput, Button } from "shards-react";
+import Overlay from 'react-bootstrap/Overlay'
+import Popover from 'react-bootstrap/Popover'
 import PageLoader from "./page-loader/PageLoader";
 
 const link = new WebSocketLink({
@@ -114,11 +116,46 @@ const Messages = ({ user }) => {
   );
 };
 
+const MessagePopover = (props) => {
+  let currentTarget = document.querySelector(`.${props.target}`)
+  return (
+    <Overlay
+      show={props.show}
+      target={currentTarget}
+      placement="bottom"
+      container={currentTarget}
+      containerPadding={20}
+    >
+    <Popover id="popover-contained">
+        <Popover.Title as="h3" className="text-dark" style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          cursor: 'pointer'
+        }} onClick={props.onHide}>
+            {props.title} 
+            <span className="iconify" style={{ fontSize: '22px' }} data-icon="carbon:close" data-inline="false"></span>
+        </Popover.Title>
+        <Popover.Content>
+            {props.content}
+        </Popover.Content>
+    </Popover>
+  </Overlay>
+  )
+}
+
 const Chat = () => {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     user: "Ryan",
     content: "",
   });
+  const [show, setShow] = useState(false)
+  const [messageFieldPopover, setMessageFieldPopover] = useState(false)
+  const [messagePopover, setMessagePopover] = useState(false)
+
+  useEffect(() => {
+    setShow(true)
+  }, [])
 
   const [postMessage] = useMutation(POST_MESSAGES);
 
@@ -135,45 +172,66 @@ const Chat = () => {
     });
   };
 
+  const onHide = () => {
+    setShow(false)
+    setMessageFieldPopover(false)
+    setMessagePopover(!messagePopover)
+  }
+
+  const changeMessage = () => {
+    setShow(false)
+    setMessageFieldPopover(true)
+  }
+
   return (
-    <Container style={{ marginBottom: "2em" }}>
-      <Messages user={state.user} />
-      <Row className="mx-auto" style={{ marginTop: "1rem" }}>
-        <Col xs={2} style={{ padding: 0 }}>
-          <FormInput
-            label="User"
-            value={state.user}
-            onChange={(evt) =>
-              setState({
-                ...state,
-                user: evt.target.value,
-              })
-            }
-          />
-        </Col>
-        <Col xs={8} className="message-input">
-          <FormInput
-            label="User"
-            value={state.content}
-            onChange={(evt) =>
-              setState({
-                ...state,
-                content: evt.target.value,
-              })
-            }
-            onKeyUp={(evt) => {
-              if (evt.keyCode === 13) {
-                onSend();
-              }
-            }}
-          />
-        </Col>
-        <Col xs={2} style={{ padding: 0 }}>
-          <Button onClick={() => onSend()} className="send-btn">
-            Send
-          </Button>
-        </Col>
-      </Row>
+    <Container style={{ marginBottom: "2em", marginTop: "2em" }}>
+      <div className="message-container">
+        <MessagePopover show={messagePopover} title='Chat' content='Now tell a friend to do the same and start chating. You can also click your messages to delete them.' onHide={onHide} target='message-container'/>
+        <Messages user={state.user} />
+        <Row className="mx-auto" style={{ marginTop: "1rem" }}>
+            <Col xs={2} style={{ padding: 0 }}>
+              <div className="name-field">
+                <MessagePopover title='Username' content='Add your name in this field.' show={show} target='name-field' onHide={onHide}/>
+                <FormInput
+                  label="User"
+                  value={state.user}
+                  onClick={changeMessage}
+                  onChange={(evt) =>
+                    setState({
+                      ...state,
+                      user: evt.target.value,
+                    })
+                  }
+                />
+              </div>
+            </Col>
+          <Col xs={8} className="message-input">
+            <div className="message-field">
+              <MessagePopover title='Message' content='Add your message in this field and then click send.' show={messageFieldPopover} target='message-field' onHide={onHide}/>
+              <FormInput
+                label="User"
+                value={state.content}
+                onChange={(evt) =>
+                  setState({
+                    ...state,
+                    content: evt.target.value,
+                  })
+                }
+                onKeyUp={(evt) => {
+                  if (evt.keyCode === 13) {
+                    onSend();
+                  }
+                }}
+              />
+            </div>
+          </Col>
+          <Col xs={2} style={{ padding: 0 }}>
+            <Button onClick={() => onSend()} className="send-btn">
+              Send
+            </Button>
+          </Col>
+        </Row>
+      </div>
     </Container>
   );
 };
