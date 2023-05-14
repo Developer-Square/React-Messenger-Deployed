@@ -12,7 +12,7 @@ import { Container, Row, Col, FormInput, Button } from "shards-react";
 import PageLoader from "./page-loader/PageLoader";
 
 const link = new WebSocketLink({
-  uri: `wss://react-messenger-backend-4.herokuapp.com/`,
+  uri: `wss://react-messenger-backend.onrender.com/`,
   // uri: `ws:localhost:4000/`,
   options: {
     reconnect: true,
@@ -21,7 +21,7 @@ const link = new WebSocketLink({
 
 const client = new ApolloClient({
   link,
-  uri: "https://react-messenger-backend-4.herokuapp.com/",
+  uri: "https://react-messenger-backend.onrender.com/",
   // uri: `http:localhost:4000/`,
   cache: new InMemoryCache(),
 });
